@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar & DatePicker</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=block"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <!-- font awesome -->
+    <script
+      src="https://kit.fontawesome.com/739348ab3c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <main>
+      <h1>Date Picker</h1>
+      <input
+        type="text"
+        class="date-picker"
+        placeholder="Select Date"
+        value=""
+        readonly
+      />
+      <div class="calendar">
+        <div class="calendar-nav">
+          <i role="button" class="prev-month fa-solid fa-caret-left"></i>
+          <div class="calendar-nav-date">
+            <div class="month"></div>
+            <div class="year"></div>
+          </div>
+          <i role="button" class="next-month fa-solid fa-caret-right"></i>
+        </div>
+        <div class="calendar-grid"></div>
+      </div>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

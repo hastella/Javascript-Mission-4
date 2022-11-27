@@ -6,6 +6,7 @@ const date_el = document.querySelector(".calendar");
 const month_el = document.querySelector(".month");
 const year_el = document.querySelector(".year");
 const day_el = document.querySelector(".calendar-grid");
+
 const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 const months = [
@@ -101,33 +102,60 @@ function populateDates() {
     day_el.appendChild(week_element);
   }
 
-  // 날짜 채우기
-  for (let i = 0; i < totalDays; i++) {
-    const day_element = document.createElement("div");
-    day_element.classList.add("day");
-    day_element.textContent = i + 1;
-
-    if (
-      selectedDay === i + 1 &&
-      selectedYear === year &&
-      selectedMonth === month
-    ) {
-      day_element.classList.add("selected");
+  //일요일 date 구하기.
+  let sunday = 0;
+  for (let i = 1; i <= weekdays.length; i++) {
+    date.setDate(i);
+    if (date.getDay() == 0) {
+      console.log(date.getDay(), day);
+      sunday = day;
     }
+  }
+  console.log(sunday);
 
-    day_element.addEventListener("click", function () {
-      selectedDate = new Date(year + "-" + (month + 1) + "-" + (i + 1));
-      selectedDay = i + 1;
-      selectedMonth = month;
-      selectedYear = year;
+  // prevMonth 날짜 채우기
+  const prevDate = new Date(year, month, 0).getDate();
+  console.log(prevDate);
 
-      selectedDate_el.textContent = formatDate(selectedDate);
+  date.setDate(1);
+  for (let i = date.getDay(); i > 0; i--) {
+    let prevMonth = document.createElement("div");
+    prevMonth.classList.add("day");
+    prevMonth.classList.add("pre-date");
+    prevMonth.innerText = `${prevDate - i + 1}`;
+    document.querySelector(".calendar-grid").appendChild(prevMonth);
+  }
 
-      populateDates();
-    });
-    day_el.appendChild(day_element);
+  // thisMonth 날짜 채우기
+  const lastDay = new Date(year, month + 1, 0).getDate();
+  console.log(lastDay);
+
+  for (let i = 0; i < lastDay; i++) {
+    let thisMonth = document.createElement("div");
+    thisMonth.classList.add("day");
+    thisMonth.classList.add("present-date");
+    thisMonth.innerText = `${i + 1}`;
+    document.querySelector(".calendar-grid").appendChild(thisMonth);
+  }
+
+  // nextMonth 날짜 채우기
+  let length = document.querySelector(".calendar-grid").childNodes.length;
+  let count = 1;
+
+  for (let i = 0; i < 49 - length; i++) {
+    let nextMonth = document.createElement("div");
+    nextMonth.classList.add("day");
+    nextMonth.classList.add("next-date");
+    nextMonth.innerText = `${count}`;
+    count++;
+    document.querySelector(".calendar-grid").appendChild(nextMonth);
   }
 }
+//날짜 찍으면 date-picker에 render
+const pick = () => {
+  document.querySelector("input").value.formatDate();
+  document.querySelector(".calendar").classList.remove("is-active");
+};
 
 function formatDate(selectedDate) {
   let day = selectedDate.getDate();
@@ -141,4 +169,4 @@ function formatDate(selectedDate) {
   let year = selectedDate.getFullYear();
   return year + "-" + month + "-" + day;
 }
-console.log(year + "-" + month + "-" + day);
+console.log(year + "-" + (month + 1) + "-" + day);

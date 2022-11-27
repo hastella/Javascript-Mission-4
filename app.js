@@ -29,10 +29,10 @@ let day = date.getDate();
 let month = date.getMonth();
 let year = date.getFullYear();
 
-let selectedDate = date;
-let selectedDay = day;
-let selectedMonth = month;
-let selectedYear = year;
+// let selectedDate = date;
+// let selectedDay = day;
+// let selectedMonth = month;
+// let selectedYear = year;
 
 month_el.textContent = months[month];
 year_el.textContent = year;
@@ -43,6 +43,13 @@ datePicker.addEventListener("click", toggleDatePicker);
 monthNext.addEventListener("click", goToNextMonth);
 monthPrev.addEventListener("click", goToPrevMonth);
 populateDates();
+
+// let navDate = document
+//   .querySelector(".calendar-nav-date")
+//   .querySelectorAll("div");
+// console.log("날짜", navDate);
+// month_el.innerText = months[month];
+// year_el.innerText = year;
 
 // 월, 년도 바꾸기
 function goToNextMonth() {
@@ -85,14 +92,14 @@ function checkClassExist(path, element) {
 // 날짜 채우기
 function populateDates() {
   day_el.innerHTML = "";
-  let totalDays;
+  // let totalDays;
 
-  if (month === 1) {
-    totalDays = 28; // 2월의 특수한 날짜 수를 지정해준다.
-  } else if (month % 2 === 0) {
-    // 1월의 인덱스 값이 0부터 시작하므로 1월, 3월, 5월을 나타낸다.
-    totalDays = 31;
-  } else totalDays = 30;
+  // if (month === 1) {
+  //   totalDays = 28; // 2월의 특수한 날짜 수를 지정해준다.
+  // } else if (month % 2 === 0) {
+  //   // 1월의 인덱스 값이 0부터 시작하므로 1월, 3월, 5월을 나타낸다.
+  //   totalDays = 31;
+  // } else totalDays = 30;
 
   // 요일 채우기
   for (let i = 0; i < weekdays.length; i++) {
@@ -101,17 +108,6 @@ function populateDates() {
     week_element.innerText = `${weekdays[i]}`;
     day_el.appendChild(week_element);
   }
-
-  //일요일 date 구하기.
-  let sunday = 0;
-  for (let i = 1; i <= weekdays.length; i++) {
-    date.setDate(i);
-    if (date.getDay() == 0) {
-      console.log(date.getDay(), day);
-      sunday = day;
-    }
-  }
-  console.log(sunday);
 
   // prevMonth 날짜 채우기
   const prevDate = new Date(year, month, 0).getDate();
@@ -139,10 +135,11 @@ function populateDates() {
   }
 
   // nextMonth 날짜 채우기
+
   let length = document.querySelector(".calendar-grid").childNodes.length;
   let count = 1;
 
-  for (let i = 0; i < 49 - length; i++) {
+  for (let i = 0; i < 42 - length; i++) {
     let nextMonth = document.createElement("div");
     nextMonth.classList.add("day");
     nextMonth.classList.add("next-date");
@@ -151,12 +148,8 @@ function populateDates() {
     document.querySelector(".calendar-grid").appendChild(nextMonth);
   }
 }
-//날짜 찍으면 date-picker에 render
-const pick = () => {
-  document.querySelector("input").value.formatDate();
-  document.querySelector(".calendar").classList.remove("is-active");
-};
 
+// 날짜 형식 맞추기
 function formatDate(selectedDate) {
   let day = selectedDate.getDate();
   if (day < 10) {

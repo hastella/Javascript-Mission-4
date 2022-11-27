@@ -91,9 +91,16 @@ i {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
   border-radius: 50px;
 }
+div .present-date {
+  color: black;
+}
+div .pre-date,
+.next-date {
+  color: rgb(173, 171, 171);
+}
+
 .calendar-grid .day:nth-child(7n-6) {
   color: rgb(198, 81, 60);
 }
